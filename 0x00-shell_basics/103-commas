@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -Ap1 | sort -d | sed ':a;N;$!ba;s/\n/, /g' | sed 's/,$/\//'
+printf '%s\n' ./../* ./.* | awk -F/ '{print $NF$0}' | sort -d | sed 's|^[^/]*|& |; s|/|/ |g'

@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -a1 | sed 's|$|/|' | awk '{printf("%s, ",$0)} END {print ""}' | sed "s|, ./,|, ./, ./../,|"
+ls -Ap1 | sort -d | sed ':a;N;$!ba;s/\n/, /g' | sed 's/,$/\//'

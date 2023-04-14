@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -1m -v --group-directories-first
+ls -a1 | sed 's|$|/|' | awk '{printf("%s, ",$0)} END {print ""}' | sed "s|, ./,|, ./, ./../,|"

@@ -1,2 +1,2 @@
 #!/bin/bash
-iacta | awk 'NR==3'
+head --lines=3 iacta | tail --lines=1

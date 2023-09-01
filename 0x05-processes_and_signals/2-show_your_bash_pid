@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#display bas pid
+# shellcheck disable=SC2009
+ps aux | awk '/bash/ {print}'

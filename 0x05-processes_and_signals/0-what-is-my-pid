@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#dispalay PID of this script
+echo "$$"

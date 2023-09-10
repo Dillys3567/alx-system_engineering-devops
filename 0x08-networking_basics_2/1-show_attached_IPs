@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#dispaly active IPv4 addresses
+ip4=$(hostname -I)
+ip4=(${ip4//" "/ })
+for ip in "${ip4[@]}"
+do
+	printf "$ip\n"
+done

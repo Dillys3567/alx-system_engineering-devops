@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+#redirection
+
+sudo apt update
+
+sudo apt install -y nginx
+
+sudo service nginx start
+
+echo "server {
+    listen 80;
+    server_name localhost;
+
+    location /redirect_me {
+	return 301 https://www.example.com/new_page;
+    }
+
+    location / {
+	root /var/www/html;
+    }
+}" | sudo tee /etc/nginx/sites-available/redirect.conf
+
+sudo ln -s /etc/nginx/sites-available/redirect.conf /etc/nginx/sites-enabled/
+
+sudo rm /etc/nginx/sites-enabled/default
+
+sudo nginx -t
+
+sudo service nginx reload
+
+if curl -I http://localhost/redirect_me | grep -q "301 Moved Permanently"; then
+    echo "Nginx is configured to perform a 301 redirection from /redirect_me."
+else
+    echo "Nginx redirection configuration failed."
+fi

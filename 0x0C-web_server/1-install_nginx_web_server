@@ -1,18 +1,7 @@
 #!/usr/bin/env bash
 #install nginx server
 
-sudo apt update
-
-sudo apt install -y nginx
-
-sudo service nginx start
-
-echo "Hello World!" | sudo tee /var/www/html/index.html
-
-nginx_status=$(sudo service nginx status)
-
-if [[ $nginx_status == *"active (running)"* ]] && sudo netstat -tuln | grep ":80 "; then
-  echo "Nginx is running."
-else
-  echo "Nginx failed."
-fi
+apt-get -y update
+apt-get -y install nginx
+echo 'Hello World!' > /usr/share/nginx/html/index.html
+service nginx start

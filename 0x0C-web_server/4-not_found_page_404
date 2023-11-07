@@ -1,32 +1,3 @@
 #!/usr/bin/env bash
 #error page
-sudo service nginx start
 
-echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/custom_404.html
-
-echo "serveer {
-    listen 80;
-    server_name localhost;
-    error_page 404 /custom_404.html;
-    location = /custom_404.html {
-        root /usr/share/nginx/html;
-        internal;
-    }
-    location / {
-        root /var/www/html;
-    }
-}" | sudo tee /etc/nginx/sites-available/custom_404.conf
-
-sudo ln -s /etc/nginx/sites-available/custom_404.conf /etc/nginx/sites-enabled/
-
-sudo rm /etc/nginx/sites-enabled/default
-
-sudo nginx -t
-
-sudo service nginx reload
-
-if curl -I http://localhost/non_existent_page | grep -q "404 Not Found"; then
-    echo "Ceci n'est pas une page"
-else
-    echo "Nginx custom 404 page configuration failed."
-fi

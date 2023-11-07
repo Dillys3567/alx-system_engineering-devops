@@ -1,50 +1,22 @@
 #install nginx package with puppet
+#using puppet 
+
 package { 'nginx':
-  ensure => 'installed',
+  ensure => 'installed'
+}
+
+file { '/var/www/html/index.html':
+  content => 'Hello World',
+}
+
+file_line { 'redirection-301':
+  ensure => 'present',
+  path => '/etc/nginx/sites-available/default',
+  after => 'listen 80 default_server;',
+  line => 'rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGU1w4 permanent;',
 }
 
 service { 'nginx':
-  ensure  => 'running',
-  enable  => true,
+  ensure => running,
   require => Package['nginx'],
-}
-
-file { '/etc/nginx/sites-available/default':
-  ensure  => 'file',
-  content => template('nginx/default.conf.erb'),
-  require => Package['nginx']
-  notify  => Service['nginx'],
-}
-
-file { '/etc/nginx/sites-available/default.conf.erb':
-  source  => 'puppet:///modules/nginx/default.conf.erb',
-  ensure  => 'file',
-}
-
-file { '/usr/share/nginx/html/custom_404.html':
-  ensure  => 'file',
-  content => 'Ceci n'est pas une page',
-  require => Package['nginx'],
-}
-
-nginx::resource::location { 'redirect_me':
-  location => '/redirect_me',
-  content  => 'return 301 https://www.example.new_page;',
-  require  => Package['nginx']
-  notify   => Service['nginx'],
-}
-
-class { 'nginx':
-  lsiten_port => 80,
-}
-
-nginx::resource::location { 'custom_404':
-  location => '/custom_404.html',
-  content  => '',
-  require  => Package['nginx'],
-}
-
-class { 'nginx':
-  package_manage => false,
-  service_manage => false,
 }

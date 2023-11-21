@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#print current user if no user is passed
 if [ "$#" -lt 1 ]; then
 	whoami
 	exit 1

@@ -13,7 +13,7 @@ if __name__ == "__main__":
     params = {"userId": emp_id}
     todo_resp = requests.get(url + "todos", params=params)
     todos = todo_resp.json()
-    name = user.get("name")
+    name = user.get("username")
     with open("{}.csv".format(emp_id), "w", newline="") as file:
         writer = csv.writer(file, quoting=csv.QUOTE_ALL)
         for todo in todos:

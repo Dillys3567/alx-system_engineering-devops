@@ -4,6 +4,7 @@
 import json
 import requests
 
+
 def fetch_users_data():
     """ fetch all user data
     """
@@ -22,6 +23,7 @@ def fetch_users_data():
                     }
             json_data[emp_id].append(task)
     return json_data
+
 
 if __name__ == "__main__":
     json_data = fetch_users_data()

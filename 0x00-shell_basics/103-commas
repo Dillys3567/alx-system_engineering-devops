@@ -1,2 +1,2 @@
 #!/bin/bash
-printf '%s\n' ./../* ./.* | awk -F/ '{print $NF$0}' | sort -d | sed 's|^[^/]*|& |; s|/|/ |g'
+ls -map

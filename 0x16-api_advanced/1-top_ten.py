@@ -21,14 +21,17 @@ def top_ten(subreddit):
     url = base_url + '{}/top/.json?count=10'.format(subreddit)
     resp = requests.get(url, headers=headers)
     resp2 = json.loads(resp.text)
+    res = None
 
     try:
         data = resp2.get('data')
         res = data.get('children')
     except:
         print('None')
+        return
     if res is None or data is None or len(res) < 1:
         print('None')
+        return
 
     for i, post_dict in enumerate(res):
         if i == 10:

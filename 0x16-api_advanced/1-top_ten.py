@@ -4,8 +4,8 @@
     listed for a given subreddit
 """
 import json
-import sys
 import requests
+import sys
 
 
 def top_ten(subreddit):
